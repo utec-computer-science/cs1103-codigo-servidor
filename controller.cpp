@@ -80,12 +80,14 @@ void controller_t::load_tokens()
             filesystem::directory_iterator second_{ players_[1]->get_path() / "in"s };
             while (first_ != end_ || second_ != end_) {
                 if (first_ != end_) {
+                    std::lock_guard<std::mutex> guard(statements_mutex);
                     statements_.push({ 0u, push_statement(*first_) });
                     filesystem::remove(*first_++, e);
                     if (e)
                         std::cerr << e.message() << "\n";
                 }
                 if (second_ != end_) {
+                    std::lock_guard<std::mutex> guard(statements_mutex);
                     statements_.push({ 1u, push_statement(*second_) });
                     filesystem::remove(*second_++, e);
                     if (e)
@@ -104,7 +106,10 @@ void controller_t::save_tokens()
     auto end_ = filesystem::directory_iterator{};
     while (true) {
         try {
-            while (!statements_.empty()) {
+            while (true) {
+                std::lock_guard<std::mutex> guard(statements_mutex);
+                if(statements_.empty())
+                    break;
                 auto item_ = statements_.front();
                 statements_.pop();
                 switch (item_.second.action) {
