@@ -214,7 +214,7 @@ void controller_t::build(const statement_item_t& item)
         message_ = "CONTINUE";
     }
 
-    text_t action_ = "PLACEFEET";
+    text_t action_ = "PLACEFLEET";
     auto file_name_ = player_->get_prefix() + std::to_string(player_->sequence()++) + ".out";
     std::ofstream file(player_->get_path() / "out"s / file_name_);
     file << action_ << "\n";
