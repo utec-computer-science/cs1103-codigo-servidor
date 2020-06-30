@@ -172,7 +172,7 @@ void controller_t::build(const statement_item_t& item)
     text_t status_ = "ACCEPTED";
     text_t message_;
     if (player_->get_id() == 0) {
-        message_ = "HANDCHECK MISSED";
+        message_ = "HANDSHAKE MISSED";
         status_ = "REJECTED";
         std::cout << "cannot build fleet of player #" << item.first + 1 << " if id has not been assigned\n";
     }
