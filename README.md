@@ -5,5 +5,5 @@
 ```
 mkdir -p build && cd build
 cmake ..
-make -j4 package
+make -j$(nproc) package
 ```
