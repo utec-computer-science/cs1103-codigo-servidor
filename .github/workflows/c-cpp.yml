@@ -20,7 +20,7 @@ jobs:
     - name: configure
       run: cmake
         -DCMAKE_CXX_COMPILER=g++-10
-        -DCMAKE_CXX_FLAGS="-O2 -pthread pipe -fno-plt -Wall -Wextra"
+        -DCMAKE_CXX_FLAGS="-O2 -pthread -pipe -fno-plt -Wall -Wextra"
         -DCMAKE_INSTALL_PREFIX=/usr
         -B build
 
