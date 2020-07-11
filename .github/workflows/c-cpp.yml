@@ -22,6 +22,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=g++-10
         -DCMAKE_CXX_FLAGS="-O2 -pthread -pipe -fno-plt -Wall -Wextra"
         -DCMAKE_INSTALL_PREFIX=/usr
+        -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
         -B build
 
     - name: build
@@ -30,7 +31,9 @@ jobs:
           cmake --build build
 
     - name: deb
-      run: cmake --build build --target package
+      run: |
+          strip --strip-all $(find build -maxdepth 1 -executable -type f)
+          cmake --build build --target package
 
     - uses: actions/upload-artifact@v2
       with:
